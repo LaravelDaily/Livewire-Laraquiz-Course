@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -33,6 +34,12 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+
+    Route::get('auth/{provider}/redirect', [SocialiteController::class, 'loginSocial'])
+        ->name('socialite.auth');
+
+    Route::get('auth/{provider}/callback', [SocialiteController::class, 'callbackSocial'])
+        ->name('socialite.callback');
 });
 
 Route::middleware('auth')->group(function () {

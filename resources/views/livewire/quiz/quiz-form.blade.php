@@ -29,6 +29,12 @@
                         </div>
 
                         <div class="mt-4">
+                            <x-input-label for="questions" value="Questions" />
+                            <x-select-list class="w-full" id="questions" name="questions" :options="$this->listsForFields['questions']" wire:model="questions" multiple />
+                            <x-input-error :messages="$errors->get('questions')" class="mt-2" />
+                        </div>
+
+                        <div class="mt-4">
                             <div class="flex items-center">
                                 <x-input-label for="published" value="Published"/>
                                 <input type="checkbox" id="published" class="mr-1 ml-2" wire:model.defer="quiz.published">

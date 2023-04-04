@@ -38,6 +38,9 @@
                             <x-dropdown-link :href="route('questions')">
                                 Questions
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('quizzes')">
+                                Quizzes
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 @endadmin

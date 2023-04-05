@@ -22,4 +22,9 @@ class HomeController extends Controller
 
         return view('home', compact('public', 'registered'));
     }
+
+    public function show(Quiz $quiz, $slug = null)
+    {
+        return view('front.quizzes.show', compact( 'quiz'));
+    }
 }

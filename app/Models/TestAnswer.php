@@ -37,6 +37,6 @@ class TestAnswer extends Model
 
     public function option(): BelongsTo
     {
-        return $this->belongsTo(QuestionsOption::class);
+        return $this->belongsTo(QuestionOption::class);
     }
 }

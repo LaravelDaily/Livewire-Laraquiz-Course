@@ -20,7 +20,7 @@ class Question extends Model
         'more_info_link',
     ];
 
-    public function questionOptions(): HasMany
+    public function options(): HasMany
     {
         return $this->hasMany(QuestionOption::class)->inRandomOrder();
     }

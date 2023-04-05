@@ -3,8 +3,12 @@
 namespace App\Http\Livewire\Front\Quizzes;
 
 use App\Models\Quiz;
+use App\Models\Test;
 use Livewire\Component;
 use App\Models\Question;
+use Livewire\Redirector;
+use App\Models\TestAnswer;
+use App\Models\QuestionOption;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -55,9 +59,40 @@ class Show extends Component
         return $this->questions->count();
     }
 
-    public function submit()
+    public function submit(): Redirector
     {
-        dd('submit');
+        $result = 0;
+
+        $test = Test::create([
+            'user_id'    => auth()->id(),
+            'quiz_id'    => $this->quiz->id,
+            'result'     => 0,
+            'ip_address' => request()->ip(),
+            'time_spent' => now()->timestamp - $this->startTimeSeconds
+        ]);
+
+        foreach ($this->questionsAnswers as $key => $option) {
+            $status = 0;
+
+            if (! empty($option) && QuestionOption::find($option)->correct) {
+                $status = 1;
+                $result++;
+            }
+
+            TestAnswer::create([
+                'user_id'     => auth()->id(),
+                'test_id'     => $test->id,
+                'question_id' => $this->questions[$key]->id,
+                'option_id'   => $option ?? null,
+                'correct'     => $status,
+            ]);
+        }
+
+        $test->update([
+            'result' => $result,
+        ]);
+
+        return to_route('home');
     }
 
     public function render(): View

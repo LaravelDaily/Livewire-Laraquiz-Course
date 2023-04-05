@@ -6,7 +6,7 @@
         Time left for this question: <span x-text="secondsLeft" class="font-bold"></span> sec.
     </div>
 
-    <span class="text-bold">Question {{ $currentQuestionIndex + 1 }} of {{ $this->questions->count() }}:</span>
+    <span class="text-bold">Question {{ $currentQuestionIndex + 1 }} of {{ $this->questionsCount }}:</span>
     <h2 class="mb-4 text-2xl">{{ $currentQuestion->question_text }}</h2>
 
     @if ($currentQuestion->code_snippet)
@@ -26,9 +26,9 @@
         </div>
     @endforeach
 
-    @if ($currentQuestionIndex < $this->questions->count() - 1)
+    @if ($currentQuestionIndex < $this->questionsCount - 1)
         <div class="mt-4">
-                <x-secondary-button x-on:click="{ secondsLeft = {{ config('quiz.secondsPerQuestion') }}; $wire.changeQuestion(); }">
+            <x-secondary-button x-on:click="secondsLeft = {{ config('quiz.secondsPerQuestion') }}; $wire.changeQuestion();">
                 Next question
             </x-secondary-button>
         </div>

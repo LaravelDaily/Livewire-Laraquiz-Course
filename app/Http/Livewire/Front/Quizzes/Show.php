@@ -34,7 +34,7 @@ class Show extends Component
 
         $this->currentQuestion = $this->questions[$this->currentQuestionIndex];
 
-        for($i = 0; $i < $this->questions->count(); $i++) {
+        for($i = 0; $i < $this->questionsCount; $i++) {
             $this->questionsAnswers[$i] = [];
         }
     }
@@ -43,11 +43,16 @@ class Show extends Component
     {
         $this->currentQuestionIndex++;
 
-        if ($this->currentQuestionIndex >= $this->questions->count()) {
-            return $this->submit();
+        if ($this->currentQuestionIndex >= $this->questionsCount) {
+            $this->submit();
         }
 
         $this->currentQuestion = $this->questions[$this->currentQuestionIndex];
+    }
+
+    public function getQuestionsCountProperty(): int
+    {
+        return $this->questions->count();
     }
 
     public function submit()

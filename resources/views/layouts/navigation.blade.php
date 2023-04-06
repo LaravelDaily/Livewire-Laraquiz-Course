@@ -12,7 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-
+                    @auth
+                        <x-nav-link :href="route('results.index')" :active="request()->routeIs('results.index')">
+                            My Results
+                        </x-nav-link>
+                    @endauth
                 </div>
             </div>
 

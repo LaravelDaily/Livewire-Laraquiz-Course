@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Test;
 use App\Models\User;
 use App\Models\TestAnswer;
+use Illuminate\Contracts\View\View;
 
 class ResultController extends Controller
 {
+    public function index(): View
+    {
+        $results = Test::with('quiz')->withCount('questions')->where('user_id', auth()->id())->paginate();
+
+        return view('front.results.index', compact('results'));
+    }
+
     public function show(Test $test)
     {
         $test->load('user', 'quiz');

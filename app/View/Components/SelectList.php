@@ -11,7 +11,7 @@ class SelectList extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public mixed $options)
+    public function __construct(public mixed $options, public mixed $selectedOptions)
     {
         //
     }

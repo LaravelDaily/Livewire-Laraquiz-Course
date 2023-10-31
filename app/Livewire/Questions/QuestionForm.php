@@ -1,15 +1,21 @@
 <?php
 
-namespace App\Http\Livewire\Questions;
+namespace App\Livewire\Questions;
 
 use Livewire\Component;
-use Livewire\Redirector;
 use App\Models\Question;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class QuestionForm extends Component
 {
-    public Question $question;
+    public ?Question $question = null;
+
+    public string $question_text = '';
+    public string|null $code_snippet = '';
+    public string|null $answer_explanation = '';
+    public string|null $more_info_link = '';
 
     public bool $editing = false;
 
@@ -17,12 +23,15 @@ class QuestionForm extends Component
 
     public function mount(Question $question): void
     {
-        $this->question = $question;
-
-        if ($this->question->exists) {
+        if ($question->exists) {
+            $this->question = $question;
             $this->editing = true;
+            $this->question_text = $question->question_text;
+            $this->code_snippet = $question->code_snippet;
+            $this->answer_explanation = $question->answer_explanation;
+            $this->more_info_link = $question->more_info_link;
 
-            foreach ($this->question->questionOptions as $option) {
+            foreach ($question->questionOptions as $option) {
                 $this->questionOptions[] = [
                     'id'      => $option->id,
                     'option'  => $option->option,
@@ -46,11 +55,15 @@ class QuestionForm extends Component
         $this->questionOptions = array_values(($this->questionOptions));
     }
 
-    public function save(): Redirector
+    public function save(): Redirector|RedirectResponse
     {
         $this->validate();
 
-        $this->question->save();
+        if (empty($this->question)) {
+            $this->question = Question::create($this->only(['question_text', 'code_snippet', 'answer_explanation', 'more_info_link']));
+        } else {
+            $this->question->update($this->only(['question_text', 'code_snippet', 'answer_explanation', 'more_info_link']));
+        }
 
         $this->question->questionOptions()->delete();
 
@@ -69,19 +82,19 @@ class QuestionForm extends Component
     protected function rules(): array
     {
         return [
-            'question.question_text' => [
+            'question_text' => [
                 'string',
                 'required',
             ],
-            'question.code_snippet' => [
+            'code_snippet' => [
                 'string',
                 'nullable',
             ],
-            'question.answer_explanation' => [
+            'answer_explanation' => [
                 'string',
                 'nullable',
             ],
-            'question.more_info_link' => [
+            'more_info_link' => [
                 'url',
                 'nullable',
             ],

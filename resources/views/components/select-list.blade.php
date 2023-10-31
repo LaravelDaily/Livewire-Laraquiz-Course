@@ -5,7 +5,7 @@
                 <option></option>
             @endif
             @foreach($options as $key => $value)
-                <option value="{{ $key }}">{{ $value }}</option>
+                <option value="{{ $key }}" @selected(in_array($key, $selectedOptions))>{{ $value }}</option>
             @endforeach
         </select>
     </div>
@@ -13,7 +13,7 @@
 
 @push('scripts')
     <script>
-        document.addEventListener("livewire:load", () => {
+        document.addEventListener('livewire:init', () => {
             let el = $('#{{ $attributes['id'] }}')
 
             function initSelect() {

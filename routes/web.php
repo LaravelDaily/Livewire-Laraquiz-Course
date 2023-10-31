@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Livewire\Front\Leaderboard;
-use App\Http\Livewire\Quiz\QuizList;
-use App\Http\Livewire\Quiz\QuizForm;
+use App\Livewire\Quiz\QuizList;
+use App\Livewire\Quiz\QuizForm;
+use App\Livewire\Front\Leaderboard;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Livewire\Questions\QuestionList;
+use App\Livewire\Questions\QuestionForm;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\Questions\QuestionList;
-use App\Http\Livewire\Questions\QuestionForm;
 use App\Http\Controllers\Admin\TestController;
 
 /*

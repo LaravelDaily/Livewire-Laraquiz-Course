@@ -18,7 +18,7 @@
             <label for="option.{{ $option->id }}">
                 <input type="radio"
                        id="option.{{ $option->id }}"
-                       wire:model.defer="questionsAnswers.{{ $currentQuestionIndex }}"
+                       wire:model="questionsAnswers.{{ $currentQuestionIndex }}"
                        name="questionsAnswers.{{ $currentQuestionIndex }}"
                        value="{{ $option->id }}">
                 {{ $option->option }}
@@ -34,7 +34,7 @@
         </div>
     @else
         <div class="mt-4">
-            <x-primary-button wire:click.prevent="submit">Submit</x-primary-button>
+            <x-primary-button wire:click="submit">Submit</x-primary-button>
         </div>
     @endif
 </div>

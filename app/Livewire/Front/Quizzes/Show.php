@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Livewire\Front\Quizzes;
+namespace App\Livewire\Front\Quizzes;
 
 use App\Models\Quiz;
 use App\Models\Test;
 use Livewire\Component;
 use App\Models\Question;
-use Livewire\Redirector;
 use App\Models\TestAnswer;
 use App\Models\QuestionOption;
+use Livewire\Attributes\Computed;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class Show extends Component
 {
@@ -54,12 +56,13 @@ class Show extends Component
         $this->currentQuestion = $this->questions[$this->currentQuestionIndex];
     }
 
-    public function getQuestionsCountProperty(): int
+    #[Computed]
+    public function questionsCount(): int
     {
         return $this->questions->count();
     }
 
-    public function submit(): Redirector
+    public function submit(): Redirector|RedirectResponse
     {
         $result = 0;
 

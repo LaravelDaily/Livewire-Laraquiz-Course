@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\Livewire;
 
+use Tests\TestCase;
 use App\Models\User;
 use Livewire\Livewire;
 use App\Models\Question;
 use App\Models\QuestionOption;
-use App\Http\Livewire\Questions\QuestionForm;
+use App\Livewire\Questions\QuestionForm;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 
 class QuestionsTest extends TestCase
 {
@@ -20,10 +19,10 @@ class QuestionsTest extends TestCase
         $this->actingAs(User::factory()->admin()->create());
 
         Livewire::test(QuestionForm::class)
-            ->set('question.question_text', 'very secret question')
+            ->set('question_text', 'very secret question')
             ->set('questionOptions.0.option', 'first answer')
             ->call('save')
-            ->assertHasNoErrors(['question.question_text', 'question.code_snippet', 'question.answer_explanation', 'question.more_info_link', 'question.topic_id', 'questionOptions', 'questionOptions.*.option'])
+            ->assertHasNoErrors(['question_text', 'code_snippet', 'answer_explanation', 'more_info_link', 'topic_id', 'questionOptions', 'questionOptions.*.option'])
             ->assertRedirect(route('questions'));
 
         $this->assertDatabaseHas('questions', [
@@ -36,9 +35,9 @@ class QuestionsTest extends TestCase
         $this->actingAs(User::factory()->admin()->create());
 
         Livewire::test(QuestionForm::class)
-            ->set('question.question_text', '')
+            ->set('question_text', '')
             ->call('save')
-            ->assertHasErrors(['question.question_text' => 'required']);
+            ->assertHasErrors(['question_text' => 'required']);
     }
 
     public function testAdminCanEditQuestion()
@@ -50,9 +49,9 @@ class QuestionsTest extends TestCase
             ->create();
 
         Livewire::test(QuestionForm::class, [$question])
-            ->set('question.question_text', 'very secret question')
+            ->set('question_text', 'very secret question')
             ->call('save')
-            ->assertHasNoErrors(['question.question_text', 'question.code_snippet', 'question.answer_explanation', 'question.more_info_link', 'question.topic_id', 'questionOptions', 'questionOptions.*.option'])
+            ->assertHasNoErrors(['question_text', 'code_snippet', 'answer_explanation', 'more_info_link', 'topic_id', 'questionOptions', 'questionOptions.*.option'])
             ->assertRedirect(route('questions'));
 
         $this->assertDatabaseHas('questions', [

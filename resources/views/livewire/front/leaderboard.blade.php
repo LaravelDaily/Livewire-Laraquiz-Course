@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <select class="p-3 w-full text-sm leading-5 rounded border-0 shadow text-slate-600" wire:model="quizId">
+                    <select class="p-3 w-full text-sm leading-5 rounded border-0 shadow text-slate-600" wire:model.live="quizId">
                         <option value="0">--- all quizzes ---</option>
                         @foreach($quizzes as $quiz)
                             <option value="{{ $quiz->id }}">{{ $quiz->title }}</option>

@@ -16,7 +16,7 @@
                             </span>
                         </div>
                     @else
-                        @livewire('front.quizzes.show', ['quiz' => $quiz])
+                        <livewire:front.quizzes.show :quiz="$quiz" />
                     @endif
                 </div>
             </div>

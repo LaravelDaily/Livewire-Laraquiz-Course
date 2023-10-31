@@ -12,42 +12,42 @@
                     <form wire:submit.prevent="save">
                         <div>
                             <x-input-label for="title" value="Title" />
-                            <x-text-input wire:model.lazy="quiz.title" id="title" class="block mt-1 w-full" type="text" name="title" required />
-                            <x-input-error :messages="$errors->get('quiz.title')" class="mt-2" />
+                            <x-text-input wire:model.blur="title" id="title" class="block mt-1 w-full" type="text" name="title" required />
+                            <x-input-error :messages="$errors->get('title')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
                             <x-input-label for="slug" value="Slug" />
-                            <x-text-input wire:model.lazy="quiz.slug" id="slug" class="block mt-1 w-full" type="text" name="slug" />
-                            <x-input-error :messages="$errors->get('quiz.slug')" class="mt-2" />
+                            <x-text-input wire:model.blur="slug" id="slug" class="block mt-1 w-full" type="text" name="slug" />
+                            <x-input-error :messages="$errors->get('slug')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
                             <x-input-label for="description" value="Description" />
-                            <x-textarea wire:model.defer="quiz.description" id="description" class="block mt-1 w-full" type="text" name="description" />
-                            <x-input-error :messages="$errors->get('quiz.description')" class="mt-2" />
+                            <x-textarea wire:model="description" id="description" class="block mt-1 w-full" type="text" name="description" />
+                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
                             <x-input-label for="questions" value="Questions" />
-                            <x-select-list class="w-full" id="questions" name="questions" :options="$this->listsForFields['questions']" wire:model="questions" multiple />
+                            <x-select-list class="w-full" id="questions" name="questions" :options="$this->listsForFields['questions']" :selectedOptions="$questions" wire:model="questions" multiple />
                             <x-input-error :messages="$errors->get('questions')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
                             <div class="flex items-center">
                                 <x-input-label for="published" value="Published"/>
-                                <input type="checkbox" id="published" class="mr-1 ml-2" wire:model.defer="quiz.published">
+                                <input type="checkbox" id="published" class="mr-1 ml-2" wire:model="published">
                             </div>
-                            <x-input-error :messages="$errors->get('quiz.published')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('published')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
                             <div class="flex items-center">
                                 <x-input-label for="public" value="Public"/>
-                                <input type="checkbox" id="public" class="mr-1 ml-2" wire:model.defer="quiz.public">
+                                <input type="checkbox" id="public" class="mr-1 ml-2" wire:model="public">
                             </div>
-                            <x-input-error :messages="$errors->get('quiz.public')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('public')" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
